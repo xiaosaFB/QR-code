@@ -8,8 +8,6 @@ $(function() {
 });
 var mCode = (function(_self) {
     let loadIndex =0;
-    let bg_rectangle = "../image/bg-rectangle.png";
-    let bg_circle= "../image/bg-circle.png";
 
     //定义变量   
     _self.exportArr = [];   
@@ -34,25 +32,27 @@ var mCode = (function(_self) {
     //画二维码
     _self.drawCodeImg =function() {
         let _length = _self.exportArr.length;
-        let type = $("input[name='optionsRadiosinline']").val();
+        let type = $("input:radio[name='optionsRadiosinline']:checked").val();
         let $p_hide = $("#contet_code_hide");
         let $p = $("#contet_code");
         let name =$.trim($("#orgName").val());
         let mainClass = 'tablelist-code';
         let html_name = '';
+        let html_logo = '';
         if(type==1){
              mainClass = 'tablelist-code-circle';
         }else{
             html_name ='<div class="tablelist-code-name">'+name+'</div>';
+            html_logo ='<div class="tablelist-code-logo"></div>';
         }
         $p_hide.empty();
+        $p.empty();
         let everydataUrl =[];
         for(var i=0;i<_length;i++){
             $p_hide.append(`<div  id="code_`+_self.exportArr[i].code+`" class="`+mainClass+`">`
-                +html_name+
-                `<canvas id="canvas" width="30px" height="30px"></canvas>
-            </div>`);
-            updateCode($("#code_"+_self.exportArr[i].code),_self.exportArr[i].code);
+                +html_logo+html_name+
+                `<div  id="codeParent_`+_self.exportArr[i].code+`"><canvas></canvas></div></div>`);
+            updateCode($("#codeParent_"+_self.exportArr[i].code),_self.exportArr[i].code);
             //获得二维码的dataurl         
             //获得的二维码dataurl存入数组    
             html2canvas(document.querySelector("#code_"+_self.exportArr[i].code)).then(canvas => {
@@ -123,10 +123,10 @@ var mCode = (function(_self) {
                     ecLevel: 'L',
                     minVersion: 6,
                     fill: '#333333',
-                    background: '#ffffff',//背景颜色
+                    background: null,//背景颜色
                     //foreground : "#000000", //二维码的前景色
                     text: code,
-                    size: '118',
+                    size: 118,
                     radius:0.5,
                     quiet: 1,
                     mode: 4,

@@ -10,10 +10,10 @@
 
 <body>
     <!-- 二维码中间图标-->
-    <img id="img-buffer" style=" width: 20px; height: 20px;display: none;" src="./image/logo.png">
+    <img id="img-buffer" style=" width: 28px; height: 28px;display: none;" src="./image/logo.png">
 
 </div>
-    <div class="create-card" style="width: 535px;">
+    <div class="create-card">
         <form class="form-horizontal">
             <div class="form-group">
                 <label for="inputEmail3" class="col-sm-2 control-label la-col-2">卡片类型:</label>
@@ -43,17 +43,12 @@
                     <button  class="btn  btn-primary" type="button" onclick="mCode.createCode();">确认批量生产</button>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" class="code-div">
                 <div id="contet_code_hide" class="col-sm-offset-2 la-col-offset-2 col-sm-offset-2 col-sm-10 la-col-10" >
                   
                 </div>
                 <div id="contet_code" class="col-sm-offset-2 la-col-offset-2 col-sm-offset-2 col-sm-10 la-col-10" style="max-height: 400px;overflow:auto;">
                   
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-offset-2 la-col-offset-2 col-sm-offset-2 col-sm-10 la-col-10">
-                   <code class="form-control" rows="8"></code>
                 </div>
             </div>
             <div class="form-group">
@@ -64,7 +59,9 @@
         </form>
     </div>
      <table class="table1" id="createTable">
-        <tbody></tbody>
+        <tbody>
+             <tr class="excel-title"><td><strong>序号</strong></td><td><strong>二维码标题</strong></td></tr>
+        </tbody>
     </table>
 
 </body>

@@ -1,12 +1,48 @@
-.create-card{text-align:left;margin:0 auto}.create-card label{text-align:left!important}.la-col-2{float:left!important;width:16.66666667%!important}.la-col-10{float:left!important;width:83.33333333%!important}.la-col-12{float:left!important;width:100%!important}.la-col-offset-2{margin-left:16.66666667%!important}.table1{display:none}
+.create-card{
+    width: 60%;
+	margin: 5% auto;
+	text-align:left;
+}
+.create-card label{text-align:left!important}.la-col-2{float:left!important;width:16.66666667%!important}.la-col-10{float:left!important;width:83.33333333%!important}.la-col-12{float:left!important;width:100%!important}.la-col-offset-2{margin-left:16.66666667%!important}.table1{display:none}
+.code-div{
+	border: 1px solid rgba(0,0,0,.2);
+}
 .tablelist-code{
-	height: 306pt;
-	width: 488pt;
-	font-size: 18pt;
+	position: relative;
+	height: 306px;
+	width: 488px;
+	font-size: 18px;
+	background: url(../image/bg-rectangle.png) no-repeat;
+	background-color: transparent;
+}
+.tablelist-code canvas{
+	position: absolute;
+	right: 63px;
+	top: 108px;
+	/*border: 1px solid rgba(153, 152, 153,.2);*/
+	padding: 5px;
+}
+.tablelist-code-logo{
+	position: absolute;
+	height: 28px;
+	width: 28px;
+    left: 25px;
+    top: 30px;
+	background: url(../image/logo.png) no-repeat;
 }
 .tablelist-code-name{
-
+	position: absolute;
+	left: 64px;
+	top: 35px;
+	color: #fff;
 }
 .tablelist-code-circle{
-
+	position: relative;
+	height: 304px;    
+	line-height: 400px;
+	width: 304px;
+	background: url(../image/bg-circle.png) no-repeat;
+	text-align: center;
+	border-radius: 50%;
+	background-color: transparent;
 }
