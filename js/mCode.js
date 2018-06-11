@@ -15,10 +15,13 @@ var mCode = (function(_self) {
     _self.exportArr = [];   
 
     _self.createCode = function() {
+        let num  = $.trim($("#num").val());
+        if(num<1 || num>50 || !(num%1 === 0)){
+            layer.msg("请输入1~50之间的整数！");
+            return;
+        }
         loadIndex = layer.load(2, {time: 10*1000})
         _self.exportArr =[];
-        let type = $("input[name='optionsRadiosinline']").val();
-        let num  = $.trim($("#num").val());
         for(let i=0;i<num;i++){
             _self.exportArr.push({
                 "name":i,
@@ -31,13 +34,23 @@ var mCode = (function(_self) {
     //画二维码
     _self.drawCodeImg =function() {
         let _length = _self.exportArr.length;
+        let type = $("input[name='optionsRadiosinline']").val();
         let $p_hide = $("#contet_code_hide");
         let $p = $("#contet_code");
+        let name =$.trim($("#orgName").val());
+        let mainClass = 'tablelist-code';
+        let html_name = '';
+        if(type==1){
+             mainClass = 'tablelist-code-circle';
+        }else{
+            html_name ='<div class="tablelist-code-name">'+name+'</div>';
+        }
         $p_hide.empty();
         let everydataUrl =[];
         for(var i=0;i<_length;i++){
-            $p_hide.append(`<div  id="code_`+_self.exportArr[i].code+`" class="tablelist-code">
-                <canvas id="canvas" width="30px" height="30px"></canvas>
+            $p_hide.append(`<div  id="code_`+_self.exportArr[i].code+`" class="`+mainClass+`">`
+                +html_name+
+                `<canvas id="canvas" width="30px" height="30px"></canvas>
             </div>`);
             updateCode($("#code_"+_self.exportArr[i].code),_self.exportArr[i].code);
             //获得二维码的dataurl         
@@ -47,6 +60,10 @@ var mCode = (function(_self) {
             });
         }
         $p_hide.hide(500);
+        let setTime_m = 100*_length;
+        if(setTime_m<500){
+            setTime_m=500;
+        }
         setTimeout(function() {
             for(var i=0;i<_length;i++){
                 everydataUrl.push($("#contet_code").children("canvas")[i].toDataURL("image/png"));  
@@ -66,19 +83,16 @@ var mCode = (function(_self) {
                         .then(function(content) {
                             saveAs(content, "资产二维码("+_length+").zip");
                         });
-                        layer.close(loadIndex);
                     }
-                }   
+                } 
             }else{
                 for (var i = 0; i < _length; i++) {
                     var blobData = dataURLtoBlob(everydataUrl[i]);
                     saveAs(blobData,_self.exportArr[i].name+".png");
-                    if(i==_length-1){
-                        layer.close(loadIndex);
-                    }
-                }       
+                }    
             }
-        },100*_length)
+            layer.closeAll();   
+        },setTime_m)
        
     }
    
@@ -112,7 +126,7 @@ var mCode = (function(_self) {
                     background: '#ffffff',//背景颜色
                     //foreground : "#000000", //二维码的前景色
                     text: code,
-                    size: 187,
+                    size: '118',
                     radius:0.5,
                     quiet: 1,
                     mode: 4,

@@ -1,6 +1,12 @@
-.create-card{text-align:left;margin:0 auto}.create-card label{text-align:left!important}.la-col-2{float:left!important;width:16.66666667%!important}.la-col-10{float:left!important;width:83.33333333%!important}.la-col-12{float:left!important;width:100%!important}.la-col-offset-2{margin-left:16.66666667%!important}
+.create-card{text-align:left;margin:0 auto}.create-card label{text-align:left!important}.la-col-2{float:left!important;width:16.66666667%!important}.la-col-10{float:left!important;width:83.33333333%!important}.la-col-12{float:left!important;width:100%!important}.la-col-offset-2{margin-left:16.66666667%!important}.table1{display:none}
 .tablelist-code{
-	height: 300px;
-	width: 300px;
-	border: 1px solid red;
+	height: 306pt;
+	width: 488pt;
+	font-size: 18pt;
+}
+.tablelist-code-name{
+
+}
+.tablelist-code-circle{
+
 }
