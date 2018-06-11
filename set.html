@@ -3,27 +3,31 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=Edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>详情</title>
+<title>二维码批量生成</title>
 <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="./css/card.css">
 </head>
 
 <body>
+    <!-- 二维码中间图标-->
+    <img id="img-buffer" style=" width: 20px; height: 20px;display: none;" src="./image/logo.png">
+
+</div>
     <div class="create-card" style="width: 535px;">
         <form class="form-horizontal">
             <div class="form-group">
                 <label for="inputEmail3" class="col-sm-2 control-label la-col-2">卡片类型:</label>
                 <div class="col-sm-10 la-col-10">
                     <label class="radio-inline">
-                        <input type="radio" name="optionsRadiosinline"  value="option1"> 长形卡片
+                        <input type="radio" name="optionsRadiosinline" checked="checked" value="0"> 长形卡片
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="optionsRadiosinline"  value="option2"> 方形卡片
+                        <input type="radio" name="optionsRadiosinline"  value="1"> 圆形卡片
                     </label>
                 </div>
             </div>
             <div class="form-group">
-                <label for="inputPassword3" class="col-sm-2 control-label la-col-2">项目名称:</label>
+                <label for="inputPassword3" class="col-sm-2 control-label la-col-2">卡片标题:</label>
                 <div class="col-sm-10 la-col-10">
                     <input type="text" class="form-control" >
                 </div>
@@ -31,15 +35,23 @@
              <div class="form-group">
                 <label for="inputPassword3" class="col-sm-2 control-label la-col-2">生产数量:</label>
                 <div class="col-sm-10 la-col-10">
-                    <input  type="number" step="1" class="form-control" min="1" max="1000" >
+                    <input id="num" type="number" step="1" class="form-control" min="1" max="1000" >
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-2 la-col-offset-2 col-sm-offset-2 col-sm-10 la-col-10">
-                    <button  class="btn  btn-primary" type="button" >确认批量生产</button>
+                    <button  class="btn  btn-primary" type="button" onclick="mCode.createCode();">确认批量生产</button>
                 </div>
             </div>
-             <div class="form-group">
+            <div class="form-group">
+                <div id="contet_code_hide" class="col-sm-offset-2 la-col-offset-2 col-sm-offset-2 col-sm-10 la-col-10" >
+                  
+                </div>
+                <div id="contet_code" class="col-sm-offset-2 la-col-offset-2 col-sm-offset-2 col-sm-10 la-col-10" style="max-height: 400px;overflow:auto;">
+                  
+                </div>
+            </div>
+            <div class="form-group">
                 <div class="col-sm-offset-2 la-col-offset-2 col-sm-offset-2 col-sm-10 la-col-10">
                    <code class="form-control" rows="8"></code>
                 </div>
@@ -54,7 +66,14 @@
 </body>
 <script type="text/javascript" src="./js/jQuery-2.2.0.min.js"></script>
 <script type="text/javascript" src="./js/bootstrap.min.js"></script>
-<script type="text/javascript" src="./js/code.js"></script>
+<script type="text/javascript" src="./js/layer/layer.js"></script>
+<script type="text/javascript" src="./js/html2canvas/html2canvas.js"></script>
+<script type="text/javascript" src="./js/jqueryqr.js"></script>
+<script type="text/javascript" src="./js/canvas2image.js"></script>
+<script type="text/javascript" src="./js/FileSaver.js"></script>
+<script type="text/javascript" src="./js/jszip/jszip.min.js"></script>
+<script type="text/javascript" src="./js/print/jQuery.print.js"></script>
+<script type="text/javascript" src="./js/mCode.js"></script>
 <script type="text/javascript" src="./js/exportExcel.js"></script>
 
 </html>

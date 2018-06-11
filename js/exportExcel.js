@@ -8,7 +8,7 @@ $(function() {
 });
 var exportE = (function(_self) {
         
-    console.log(code.exportArr);
+    console.log(mCode.exportArr);
     //TODO
     _self.exportGUID =function () {
     	
