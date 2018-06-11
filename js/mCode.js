@@ -22,7 +22,7 @@ var mCode = (function(_self) {
         _self.exportArr =[];
         for(let i=0;i<num;i++){
             _self.exportArr.push({
-                "name":i,
+                "name":"二维码-"+(i+1),
                 "code":uuid()
             })
         }
@@ -45,10 +45,13 @@ var mCode = (function(_self) {
             html_name ='<div class="tablelist-code-name">'+name+'</div>';
             html_logo ='<div class="tablelist-code-logo"></div>';
         }
-        $p_hide.empty();
+        $p_hide.empty().show();
         $p.empty();
         let everydataUrl =[];
-        for(var i=0;i<_length;i++){
+        var zip = new JSZip();
+        //压缩包文件夹名称
+        var qrCodeImg = zip.folder("资产二维码");
+        for(let i=0;i<_length;i++){
             $p_hide.append(`<div  id="code_`+_self.exportArr[i].code+`" class="`+mainClass+`">`
                 +html_logo+html_name+
                 `<div  id="codeParent_`+_self.exportArr[i].code+`"><canvas></canvas></div></div>`);
@@ -57,43 +60,29 @@ var mCode = (function(_self) {
             //获得的二维码dataurl存入数组    
             html2canvas(document.querySelector("#code_"+_self.exportArr[i].code)).then(canvas => {
                 $p.append(canvas);
+                setTimeout(function(){
+                    everydataUrl.push($("#contet_code").children("canvas")[i].toDataURL("image/png")); 
+                    if(_length > 1){
+                        let blobData = dataURLtoBlob(everydataUrl[i]);
+                        qrCodeImg.file(_self.exportArr[i].name+".png", blobData, {base64: true});
+                        if(i==_length-1){
+                            //循环结束保存压缩包
+                            //将zip序列化为二进制流
+                            zip.generateAsync({type:"blob"})
+                            .then(function(content) {
+                                saveAs(content, "资产二维码("+_length+").zip");
+                            });
+                            layer.closeAll();  
+                        }
+                    }else{
+                        let blobData = dataURLtoBlob(everydataUrl[i]);
+                        saveAs(blobData,_self.exportArr[i].name+".png");
+                        layer.closeAll();  
+                    }
+                }, 50);
             });
         }
         $p_hide.hide(500);
-        let setTime_m = 100*_length;
-        if(setTime_m<500){
-            setTime_m=500;
-        }
-        setTimeout(function() {
-            for(var i=0;i<_length;i++){
-                everydataUrl.push($("#contet_code").children("canvas")[i].toDataURL("image/png"));  
-            }
-            //大于1张导出zip
-            if(_length > 1){
-                var zip = new JSZip();
-                //压缩包文件夹名称
-                var qrCodeImg = zip.folder("AllQrCode");
-                for (var i = 0; i < _length; i++) {
-                    var blobData = dataURLtoBlob(everydataUrl[i]);
-                    qrCodeImg.file(_self.exportArr[i].name+".png", blobData, {base64: true});
-                    if(i==_length-1){
-                        //循环结束保存压缩包
-                        //将zip序列化为二进制流
-                        zip.generateAsync({type:"blob"})
-                        .then(function(content) {
-                            saveAs(content, "资产二维码("+_length+").zip");
-                        });
-                    }
-                } 
-            }else{
-                for (var i = 0; i < _length; i++) {
-                    var blobData = dataURLtoBlob(everydataUrl[i]);
-                    saveAs(blobData,_self.exportArr[i].name+".png");
-                }    
-            }
-            layer.closeAll();   
-        },setTime_m)
-       
     }
    
 
