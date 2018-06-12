@@ -4,6 +4,12 @@
 * @description:首页js
 * */
 $(function() {
+    //绑定enter事件
+    $("#num,#orgName").keypress(function(e){
+            if ( e.which == 13 ) {
+                mCode.createCode();
+            };
+    });
 
 });
 var mCode = (function(_self) {
@@ -14,15 +20,25 @@ var mCode = (function(_self) {
 
     _self.createCode = function() {
         let num  = $.trim($("#num").val());
+        let type = $("input:radio[name='optionsRadiosinline']:checked").val();
+        let name =$.trim($("#orgName").val());
+        let zipname ="二维码卡片-";
         if(num<1 || num>50 || !(num%1 === 0)){
             layer.msg("请输入1~50之间的整数！");
             return;
+        }
+        if(type==0 && name==""){
+            layer.msg("请输入标题！");
+            return;
+        }
+        if(type==1){
+            zipname ="圆形二维码-";
         }
         loadIndex = layer.load(2, {time: 10*1000})
         _self.exportArr =[];
         for(let i=0;i<num;i++){
             _self.exportArr.push({
-                "name":"二维码-"+(i+1),
+                "name":zipname+(i+1),
                 "code":uuid()
             })
         }
@@ -39,8 +55,10 @@ var mCode = (function(_self) {
         let mainClass = 'tablelist-code';
         let html_name = '';
         let html_logo = '';
+        let zipname ="资产二维码卡片";
         if(type==1){
-             mainClass = 'tablelist-code-circle';
+            mainClass = 'tablelist-code-circle';
+            zipname ="圆形资产二维码";
         }else{
             html_name ='<div class="tablelist-code-name">'+name+'</div>';
             html_logo ='<div class="tablelist-code-logo"></div>';
@@ -50,7 +68,7 @@ var mCode = (function(_self) {
         let everydataUrl =[];
         var zip = new JSZip();
         //压缩包文件夹名称
-        var qrCodeImg = zip.folder("资产二维码");
+        var qrCodeImg = zip.folder(zipname);
         for(let i=0;i<_length;i++){
             $p_hide.append(`<div  id="code_`+_self.exportArr[i].code+`" class="`+mainClass+`">`
                 +html_logo+html_name+
@@ -70,7 +88,7 @@ var mCode = (function(_self) {
                             //将zip序列化为二进制流
                             zip.generateAsync({type:"blob"})
                             .then(function(content) {
-                                saveAs(content, "资产二维码("+_length+").zip");
+                                saveAs(content,zipname+ "("+_length+").zip");
                             });
                             layer.closeAll();  
                         }
